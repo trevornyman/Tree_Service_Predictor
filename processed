@@ -1,6 +1,21 @@
 
 #change date fields from str to num so we can perform subtraction to get a measure of the time the request took to fulfill.
 
+
+#we might want to predict 'Wait_time' from day, month, or year, so we'll want to split those off the date-string as separate variables.
+
+for start in ["Creation Date", "Completion Date"]:
+        #column = "".format(start)
+        tree_cleaning_data["{}_day".format(start)] = pd.to_numeric(tree_cleaning_data[start].str.split('/').str.get(1))
+        tree_cleaning_data["{}_year".format(start)] = pd.to_numeric(tree_cleaning_data[start].str.split('/').str.get(2))
+        tree_cleaning_data["{}_month".format(start)] = pd.to_numeric(tree_cleaning_data[start].str.split('/').str.get(0))
+        
+        
+        
+#Now we can convert the date-strings to datetime so we can perform numerical calculations on them, specifically,
+# we can calculate a variable called 'Wait_time' by subtracting the date a request is created from the date it's completed.
+#'Wait_time' will then serve as our dependent variable in our analysis
+
 tree_cleaning_data['Creation Date'] = pd.to_datetime(tree_cleaning_data['Creation Date'])
 tree_cleaning_data['Completion Date'] = pd.to_datetime(tree_cleaning_data['Completion Date'])
 
