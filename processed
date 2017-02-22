@@ -41,3 +41,13 @@ tree_cleaning_data = tree_cleaning_data.drop(tree_cleaning_data[worthless_labels
 #alley, parkway, or vacant lot.  So, we can convert this to a categorical int and use it in our machine learning algorithm.
 
 tree_cleaning_data['If Yes, where is the debris located?'] = tree_cleaning_data['If Yes, where is the debris located?'].astype('category').cat.codes
+
+
+#Next we'll define a function elim to eliminate all rows that have any missing values.  Because we got a feel for our data
+#before diving into our analysis, we know that we won't lose that much data by removing these rows.  (We lost .41% of our data).
+def elim(df):
+    for column in df.columns.values:
+        df = df[pd.notnull(df[column])]
+    return df
+    
+tree_cleaning_data = elim(tree_cleaning_data)
