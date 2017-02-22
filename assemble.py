@@ -24,8 +24,4 @@ HEADERS = {"data" : ["Creation_date",
                     "Location"]
           }
 
-def concatenate():
-  tree_cleaning_data.to_csv(os.path.join(settings.data, "{}.txt".format(prefix)), sep="|", header=SELECT[prefix], index=False)
 
-if __name__ == "__main__":
-    concatenate("data")
