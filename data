@@ -1,1 +1,5 @@
+import pandas as pd
+
+#City of Chicago 311 request data for cleaning tree debris
+tree_cleaning_data = pd.read_csv("311_Service_Requests_-_Tree_Debris.csv")
 
