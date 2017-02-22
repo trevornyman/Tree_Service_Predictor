@@ -21,3 +21,8 @@ tree_cleaning_data = tree_cleaning_data.drop(tree_cleaning_data.index[[0]])
 
 worthless_labels = ['Status', 'Type of Service Request' , 'Current Activity' , 'Most Recent Action', 'Street Address', 'Location']
 tree_cleaning_data = tree_cleaning_data.drop(tree_cleaning_data[worthless_labels], axis = 1)
+
+#initially, 'If Yes, where is the debris located?' was a string, but it's really a categorial variable with 3 distinct values:
+#alley, parkway, or vacant lot.  So, we can convert this to a categorical int and use it in our machine learning algorithm.
+
+tree_cleaning_data['If Yes, where is the debris located?'] = tree_cleaning_data['If Yes, where is the debris located?'].astype('category').cat.codes
