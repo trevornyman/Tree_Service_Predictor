@@ -1,1 +1,8 @@
 
+#change date fields from str to num so we can perform subtraction to get a measure of the time the request took to fulfill.
+
+tree_cleaning_data['Creation Date'] = pd.to_datetime(tree_cleaning_data['Creation Date'])
+tree_cleaning_data['Completion Date'] = pd.to_datetime(tree_cleaning_data['Completion Date'])
+
+#create new variable, 'Wait_time' that will serve as our measure for how long the requests are taking to fulfill.
+tree_cleaning_data['Wait_time']= tree_cleaning_data['Completion Date'] - tree_cleaning_data['Creation Date']
