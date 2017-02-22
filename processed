@@ -17,5 +17,7 @@ tree_cleaning_data = tree_cleaning_data.drop(tree_cleaning_data.index[[0]])
 #'Current Activity' and 'Most Recent Action' aren't part of the initial information a user would enter; they 
 # are added in later as the request makes its way through the pipeline.  Since we want to make 'Wait_time' predictions
 # on the data initially available, we won't use these as predictors.
-worthless_labels = ['Status', 'Type of Service Request' , 'Current Activity' , 'Most Recent Action']
+#'Street Address' is a bit too fine-grained to be useful, and 'Location' is redundant combination of 'Latitude' and 'Longitude'.
+
+worthless_labels = ['Status', 'Type of Service Request' , 'Current Activity' , 'Most Recent Action', 'Street Address', 'Location']
 tree_cleaning_data = tree_cleaning_data.drop(tree_cleaning_data[worthless_labels], axis = 1)
