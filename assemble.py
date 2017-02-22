@@ -1,4 +1,9 @@
 
+import os
+import settings
+import pandas as pd
+
+
 HEADERS = {"data" : ["Creation_date",
                     "Status",
                     "Completion_date",
@@ -18,3 +23,6 @@ HEADERS = {"data" : ["Creation_date",
                     "Lon",
                     "Location"]
           }
+
+
+tree_cleaning_data.to_csv(os.path.join(settings.data, "{}.txt".format(prefix)), sep="|", header=SELECT[prefix], index=False)
