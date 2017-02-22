@@ -6,3 +6,16 @@ tree_cleaning_data['Completion Date'] = pd.to_datetime(tree_cleaning_data['Compl
 
 #create new variable, 'Wait_time' that will serve as our measure for how long the requests are taking to fulfill.
 tree_cleaning_data['Wait_time']= tree_cleaning_data['Completion Date'] - tree_cleaning_data['Creation Date']
+
+#The data set includes a redundant header row on the 0th line, so we'll remove that
+tree_cleaning_data = tree_cleaning_data.drop(tree_cleaning_data.index[[0]])
+
+
+#we can also remove some columns that won't be useful for making our predictions.
+#Since our data goes back 6 years, 'Status' is overwhelmingly "complete", and won't be a useful predictor
+#'Type of Service Request' is always set to "tree removal", since this is tree removal data.
+#'Current Activity' and 'Most Recent Action' aren't part of the initial information a user would enter; they 
+# are added in later as the request makes its way through the pipeline.  Since we want to make 'Wait_time' predictions
+# on the data initially available, we won't use these as predictors.
+worthless_labels = ['Status', 'Type of Service Request' , 'Current Activity' , 'Most Recent Action']
+tree_cleaning_data = tree_cleaning_data.drop(tree_cleaning_data[worthless_labels], axis = 1)
