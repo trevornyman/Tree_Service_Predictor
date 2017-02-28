@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.cross_validation import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
-
+from sklearn.ensemble import RandomForestRegressor
 
 
 
@@ -50,28 +50,60 @@ def elim(df):
     return df
 
   
-  
-#splitting data
-X, y = data.drop('Wait_time', axis=1), data['Wait_time']
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
-X_train = X_train.drop(['Creation Date', 'Completion Date', 'Service Request Number'], axis=1)
-X_test = X_test.drop(['Creation Date', 'Completion Date', 'Service Request Number'], axis=1)
 
 
+###############Linear Regression#######################
 
-#training model
-model = LinearRegression()
-model.fit(X_train, y_train)
+def lin_reg(data):
+    X, y = data.drop('Wait_time', axis=1), data['Wait_time']
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+
+    X_train = X_train.drop(['Creation Date', 'Completion Date', 'Service Request Number'], axis=1)
+    X_test = X_test.drop(['Creation Date', 'Completion Date', 'Service Request Number'], axis=1)
+
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    pred = model.predict(X_test)
+    
+    print (model.coef_)
+    print (model.intercept_)
+    print ("R2 score: %s" % model.score(X_test, y_test))
+    print ("Mean squared error:", np.mean((pred - y_test)**2))
+    
+    return None
 
 
-#prediction
-pred = model.predict(X_test)
+################### Random Forests ##################################
+
+def ran_for_reg(data):
+    X, y = data.drop('Wait_time', axis=1), data['Wait_time']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+
+    X_train = X_train.drop(['Creation Date', 'Completion Date', 'Service Request Number'], axis=1)
+    X_test = X_test.drop(['Creation Date', 'Completion Date', 'Service Request Number'], axis=1)
+
+    model = RandomForestRegressor()
+    model.fit(X_train, y_train)
+    pred = model.predict(X_test)
+    
+    return None
 
 
-#evaluating model
-print ("R2 score: %s" % model.score(X_test, y_test))
+################### Neural Nets ##################################
 
+def nn_reg(data):
+    X, y = data.drop('Wait_time', axis=1), data['Wait_time']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
 
+    X_train = X_train.drop(['Creation Date', 'Completion Date', 'Service Request Number'], axis=1)
+    X_test = X_test.drop(['Creation Date', 'Completion Date', 'Service Request Number'], axis=1)
+    
+    model = MLPRegressor()
+    model.fit(X_train, y_train)
+    pred = model.predict(X_test)
+    
+    return None
 
 
 if __name__ == "__main__":
