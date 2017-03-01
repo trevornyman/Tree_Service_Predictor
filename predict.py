@@ -102,7 +102,7 @@ def nn_reg(data):
     X_train = X_train.drop(['Creation Date', 'Completion Date', 'Service Request Number'], axis=1)
     X_test = X_test.drop(['Creation Date', 'Completion Date', 'Service Request Number'], axis=1)
     
-    model = MLPRegressor()
+    model = MLPRegressor(hidden_layer_sizes=(50), solver= 'lbfgs')
     model.fit(X_train, y_train)
     pred = model.predict(X_test)
     
