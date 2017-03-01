@@ -66,7 +66,7 @@ def lin_reg(data):
     model.fit(X_train, y_train)
     pred = model.predict(X_test)
     
-    print (model.coef_)
+    print (pd.Series(model.coef_, index = X_train.columns.values))
     print (model.intercept_)
     print ("R2 score: %s" % model.score(X_test, y_test))
     print ("Mean squared error:", np.mean((pred - y_test)**2))
